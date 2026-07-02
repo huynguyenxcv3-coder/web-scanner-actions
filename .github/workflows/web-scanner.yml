@@ -30,12 +30,12 @@ on:
         description: 'Number of times to check'
         required: false
         type: string
-        default: '10000'
+        default: '10000000000000000000'
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 360
     steps:
       - name: Checkout
         uses: actions/checkout@v4
