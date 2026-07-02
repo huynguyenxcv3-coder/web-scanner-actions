@@ -12,14 +12,19 @@ on:
         required: true
         type: string
       callbackUrl:
-        description: 'Callback base URL (e.g. https://your-app.replit.dev/api/callback)'
+        description: 'Callback base URL'
         required: true
         type: string
-      aiProvider:
-        description: 'AI provider: openai or gemini'
-        required: true
+      openaiApiKey:
+        description: 'OpenAI API key (optional)'
+        required: false
         type: string
-        default: 'openai'
+        default: ''
+      geminiApiKey:
+        description: 'Gemini API key (optional)'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   scan:
@@ -42,8 +47,7 @@ jobs:
           JOB_ID: ${{ inputs.jobId }}
           TARGET_URL: ${{ inputs.url }}
           CALLBACK_URL: ${{ inputs.callbackUrl }}
-          AI_PROVIDER: ${{ inputs.aiProvider }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ inputs.openaiApiKey }}
+          GEMINI_API_KEY: ${{ inputs.geminiApiKey }}
           CALLBACK_SECRET: ${{ secrets.CALLBACK_SECRET }}
         run: node scripts/scan.mjs
