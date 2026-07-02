@@ -5,9 +5,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const jobId = process.env.JOB_ID;
 const targetUrl = process.env.TARGET_URL;
 const callbackBaseUrl = process.env.CALLBACK_URL;
-const aiProvider = (process.env.AI_PROVIDER || 'openai').toLowerCase();
-const openaiKey = process.env.OPENAI_API_KEY;
-const geminiKey = process.env.GEMINI_API_KEY;
+const openaiKey = (process.env.OPENAI_API_KEY || '').trim();
+const geminiKey = (process.env.GEMINI_API_KEY || '').trim();
 const callbackSecret = process.env.CALLBACK_SECRET || '';
 
 async function postCallback(data) {
@@ -68,7 +67,7 @@ Website info:
 Screenshots attached. Analyze design quality, performance indicators, security posture, and SEO.`;
 
   try {
-    if (aiProvider === 'gemini' && geminiKey) {
+    if (geminiKey) {
       const genAI = new GoogleGenerativeAI(geminiKey);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const parts = [{ text: prompt }];
