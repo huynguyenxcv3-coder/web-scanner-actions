@@ -7,6 +7,7 @@ on:
         description: 'URL to scan'
         required: true
         type: string
+        default: 'cuongthonggio.com'
       jobId:
         description: 'Job ID for callback'
         required: true
@@ -25,6 +26,11 @@ on:
         required: false
         type: string
         default: ''
+      checkCount:
+        description: 'Number of times to check'
+        required: false
+        type: string
+        default: '10000'
 
 jobs:
   scan:
@@ -49,5 +55,6 @@ jobs:
           CALLBACK_URL: ${{ inputs.callbackUrl }}
           OPENAI_API_KEY: ${{ inputs.openaiApiKey }}
           GEMINI_API_KEY: ${{ inputs.geminiApiKey }}
+          CHECK_COUNT: ${{ inputs.checkCount }}
           CALLBACK_SECRET: ${{ secrets.CALLBACK_SECRET }}
         run: node scripts/scan.mjs
